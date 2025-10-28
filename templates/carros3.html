@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %} Comprovar reserves {% endblock %}
+{% block content %}
+
+<h2 class="text-4xl font-extrabold dark:text-dark pt-6 pb-6">Bàsic</h2>
+<div class="relative overflow-x-auto">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    USUARI
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Carro
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Dia
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in reserves %}
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {{ r.nom }} {{ r.llinatges}}
+                </th>
+                <td class="px-6 py-4">
+                    {{ r.carro }}
+                </td>
+                <td class="px-6 py-4">
+                    {{ r.dia_reserva}}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<h2 class="text-4xl font-extrabold dark:text-dark pt-6 pb-6">Avançat</h2>
+
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    Carro
+                </th>
+                {% for r in reserves %}
+                <th scope="col" class="px-6 py-3 text-center">
+                    {{ r.dia_reserva}}
+                </th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% set carros = ["Carro simple", "carro2", "carro3"] %}
+            {% for carro in carros %}
+            <tr class="border-b border-gray-200 dark:border-gray-700">
+                <th scope="row"
+                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
+                    {{ carro }}
+                </th>
+                {% endfor %}
+                {% for r in reserves %}
+                <td class="px-6 py-4 text-center">
+                    {{ r.nom }} {{ r.llinatges }}
+                </td>
+                {% endfor %}
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+{% endblock %}
