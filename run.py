@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, session
 import json
 import datetime
 
@@ -7,35 +7,36 @@ app.config['SECRET_KEY'] = '83d168b4966265e8ae59f10f57a2b535c18668555b1d499b7353
 
 @app.route("/")
 def llistar():
+    # Llegir json
     with open ('.\static\carros.json') as file:
         llista_carros = json.load(file)
         return render_template('carros.html', llista_carros=llista_carros)
 
-RESERVES = []
-
 @app.route("/reservar", methods=['GET','POST'])
 def reservar():
     if request.method == 'POST':
-        nom = request.form['nom'].strip()
-        llinatges = request.form['llinatges'].strip()
-        dia_reserva = request.form['reserva'].strip()
-        # convertir fetxa de "%d-%m-%y" a "%d/%m/%y" per poder compararla
-        carro = request.form['carro']
+        session["nom"] = request.form['nom'].strip()
+        session["llinatges"] = request.form['llinatges'].strip()
+        session["dia_reserva"] = request.form['reserva'].strip()
+        session["carro"] = request.form['carro'].strip()
 
         try:
-            data_obj = datetime.datetime.strptime(dia_reserva, '%d-%m-%Y')
+            data_obj = datetime.datetime.strptime(session["dia_reserva"], '%d-%m-%Y')
         except ValueError:
             flash("⚠️ Format de fetxa incorrecte. Empela el format DD-MM-YYYY")
 
-        if comprovar_fetxa(data_obj) and comprovar_carro_existent(carro, data_obj):
-                nou_dia_reserva = data_obj.strftime('%d/%m/%y')
-                nou_reserva = {
-                    "nom": nom,
-                    "llinatges": llinatges,
-                    "dia_reserva": nou_dia_reserva,
-                    "carro": carro
+        reserves = session.get("reserves", [])
+
+        if comprovar_fetxa(data_obj) and comprovar_carro_existent(session["carro"], data_obj, reserves):
+                nova_reserva = {
+                    "nom": session["nom"],
+                    "llinatges": session["llinatges"],
+                    "dia_reserva": data_obj.strftime('%d-%m-%y'),
+                    "carro": session["carro"]
                 }
-                RESERVES.append(nou_reserva)
+                print(session['dia_reserva'])
+                reserves.append(nova_reserva)
+                session["reserves"] = reserves
                 return redirect(url_for('comprovar_reserves'))
         else:
             return redirect(url_for('reservar'))
@@ -44,7 +45,14 @@ def reservar():
 
 @app.route("/comprovar_reserves")
 def comprovar_reserves():
-    return render_template('carros3.html', reserves=RESERVES)   
+    reserves = session.get("reserves", [])
+    return render_template('carros3.html', reserves=reserves)   
+
+# Eliminar sesió per anar fent proves i eliminar les reserves
+# @app.route("/eliminar_sessio")
+# def eliminar_sessio():
+#     session.clear()
+#     return redirect(url_for('reservar'))
 
 # mètode per comprovar si la fetxa es posterior a la fetxa actual
 def comprovar_fetxa(data_obj):
@@ -57,9 +65,9 @@ def comprovar_fetxa(data_obj):
     return True
 
 # Mètode per comprovar si el carro ja existeix un dia concret
-def comprovar_carro_existent(carro, data_obj):
-    for element in RESERVES:
-        dia_reserva = datetime.datetime.strptime(element['dia_reserva'], "%d/%m/%y").date()
+def comprovar_carro_existent(carro, data_obj, reserves):
+    for element in reserves:
+        dia_reserva = datetime.datetime.strptime(element['dia_reserva'], "%d-%m-%y").date()
         if element['carro']  == carro and dia_reserva == data_obj.date():
             flash("❌ No pots reservar el carro per el dia seleccionat, ja es troba reservat.")
             return False
