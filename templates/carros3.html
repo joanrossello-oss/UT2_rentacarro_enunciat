@@ -61,7 +61,6 @@
 
           {% for dia in dies %}
             <td class="px-6 py-4 {% if loop.index is even %}bg-gray-50 dark:bg-gray-800{% endif %}">
-              <!-- {% set reserva = reserves | selectattr('carro', 'equalto', carro) | selectattr('dia_reserva', 'equalto', d) | list %} -->
               {% for r in reserves %}
               {% if carro == r.carro and dia == r.dia_reserva %}
                 {{ r.nom }} {{ r.llinatges }}
