@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %} Crear Carro {% endblock %}
+{% block content %}
+<form class="w-full max-w-lg" method="POST" action="">
+    <h3 class="font-bold space-y-2 text-center">Afegeix un nou carro</h3>
+    {{ form.hidden_tag() }}
+    {{ form.nom.label(class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2") }}
+    {{ form.nom(size=128, class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white") }}
+    {{ form.descripcio.label(class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2") }}
+    {{ form.descripcio(size=128, class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white") }}
+    {{ form.clase.label(class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2") }}
+    {{ form.clase(rows=8, class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500") }}
+    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+        </svg>
+    </div>
+    {{ form.preu.label(class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2") }}
+    {{ form.preu(class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500")}}
+    {{ form.submit(class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800") }}
+{% endblock %}

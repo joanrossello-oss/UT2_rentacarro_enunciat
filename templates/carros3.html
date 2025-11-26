@@ -1,76 +1,111 @@
 {% extends "base.html" %}
-{% block title %} Comprovar reserves {% endblock %}
+{% block title %} Carros {% endblock %}
 {% block content %}
-
-<h2 class="text-4xl font-extrabold dark:text-dark pt-6 pb-6">Bàsic</h2>
-<div class="relative overflow-x-auto">
-  <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-      <tr>
-        <th scope="col" class="px-6 py-3">
-          USUARI
-        </th>
-        <th scope="col" class="px-6 py-3">
-          Carro
-        </th>
-        <th scope="col" class="px-6 py-3">
-          Dia
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for r in reserves %}
-      <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-          {{ r.nom }} {{ r.llinatges}}
-        </th>
-        <td class="px-6 py-4">
-          {{ r.carro }}
-        </td>
-        <td class="px-6 py-4">
-          {{ r.dia_reserva}}
-        </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+<div class="flex flex-col items-center">
+  <!-- Help text -->
+  <span class="text-sm text-gray-700 dark:text-gray-400">
+    Mostrant reserves del <span class="font-semibold text-gray-900 dark:text-white">{{ inici_reserva }}</span> al <span
+      class="font-semibold text-gray-900 dark:text-white">{{ final_reserva }}</span>
+  </span>
+  <div class="inline-flex mt-2 xs:mt-0">
+    <!-- Buttons -->
+    <button
+      class="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-gray-800 rounded-l hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+      <svg class="w-3.5 h-3.5 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+        viewBox="0 0 14 10">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M13 5H1m0 0 4 4M1 5l4-4" />
+      </svg>
+      Prev
+    </button>
+    <button
+      class="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-gray-800 border-0 border-l border-gray-700 rounded-r hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+      Next
+      <svg class="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+        viewBox="0 0 14 10">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M1 5h12m0 0L9 1m4 4L9 9" />
+      </svg>
+    </button>
+  </div>
 </div>
-
-<h2 class="text-4xl font-extrabold dark:text-dark pt-6 pb-6">Avançat</h2>
-
-{% set c = ['Carro simple', 'carro 2','carro 3'] %}
-{% set dies = ['04-12-25','05-12-25','06-12-25','07-12-25','08-12-25'] %}
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
   <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
     <thead class="text-xs text-gray-700 uppercase dark:text-gray-400">
       <tr>
-        <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">Carro</th>
-        {% for dia in dies %}
-          <th scope="col" class="px-6 py-3 {% if loop.index is even %}bg-gray-50 dark:bg-gray-800{% endif %}">
-            {{ dia }}
-          </th>
-        {% endfor %}
+        <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">
+          Carro
+        </th>
+        <th scope="col" class="px-6 py-3">
+          02-10-2023
+        </th>
+        <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">
+          03-10-2023
+        </th>
+        <th scope="col" class="px-6 py-3">
+          04-10-2023
+        </th>
+        <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">
+          05-10-2023
+        </th>
+        <th scope="col" class="px-6 py-3">
+          06-10-2023
+        </th>
+        <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">
+          07-10-2023
+        </th>
+        <th scope="col" class="px-6 py-3">
+          08-10-2023
+        </th>
       </tr>
     </thead>
     <tbody>
-      {% for carro in c %}
-        <tr class="border-b border-gray-200 dark:border-gray-700">
-          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-            {{ carro }}
-          </th>
+      <tr class="border-b border-gray-200 dark:border-gray-700">
+        <th scope="row"
+          class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
+          Western
+        </th>
+        <td class="px-6 py-4">
+          Jane Doe
+        </td>
+        <td class="px-6 py-4 bg-gray-50 dark:bg-gray-800">
+        </td>
+        <td class="px-6 py-4">
+        </td>
+        <td class="px-6 py-4 bg-gray-50 dark:bg-gray-800">
+        </td>
+        <td class="px-6 py-4">
+        </td>
+        <td class="px-6 py-4 bg-gray-50 dark:bg-gray-800">
+        </td>
+        <td class="px-6 py-4">
+        </td>
+      </tr>
+      <tr class="border-b border-gray-200 dark:border-gray-700">
+        <th scope="row"
+          class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
+          Deportiu
+        </th>
+        <td class="px-6 py-4">
 
-          {% for dia in dies %}
-            <td class="px-6 py-4 {% if loop.index is even %}bg-gray-50 dark:bg-gray-800{% endif %}">
-              {% for r in reserves %}
-              {% if carro == r.carro and dia == r.dia_reserva %}
-                {{ r.nom }} {{ r.llinatges }}
-              {% endif %}
-              {% endfor %}
-            </td>
-          {% endfor %}
-        </tr>
-      {% endfor %}
+        </td>
+        <td class="px-6 py-4 bg-gray-50 dark:bg-gray-800">
+
+        </td>
+        <td class="px-6 py-4">
+          Trotaire aficionat
+        </td>
+        <td class="px-6 py-4 bg-gray-50 dark:bg-gray-800">
+        </td>
+        <td class="px-6 py-4">
+        </td>
+        <td class="px-6 py-4 bg-gray-50 dark:bg-gray-800">
+        </td>
+        <td class="px-6 py-4">
+        </td>
+      </tr>
     </tbody>
   </table>
 </div>
-{% endblock %}
+
+{% endblock%}
